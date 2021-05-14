@@ -19,18 +19,16 @@ public class BaseTest {
     public void setupDriver(ITestContext ctx) throws MalformedURLException {
         // BROWSER => chrome / firefox
         // HUB_HOST => localhost / 10.0.1.3 / hostname
-
         String host = "localhost";
-        DesiredCapabilities dc;
+        //DesiredCapabilities dc;
         ChromeOptions chrome = null;
         FirefoxOptions firefox = null;
 
-
         if(System.getProperty("BROWSER") != null &&
                 System.getProperty("BROWSER").equalsIgnoreCase("firefox")){
-            chrome = new ChromeOptions();
-        }else{
             firefox = new FirefoxOptions();
+         else{
+            chrome = new ChromeOptions();
         }
 
         if(System.getProperty("HUB_HOST") != null){
@@ -38,7 +36,6 @@ public class BaseTest {
         }
 
         String testName = ctx.getCurrentXmlTest().getName();
-
         String completeUrl = "http://" + host + ":4444/wd/hub";
    
         if (chrome != null) {
@@ -49,7 +46,6 @@ public class BaseTest {
             firefox.setCapability("name", testName);
             this.driver = new RemoteWebDriver(new URL(completeUrl), firefox);
         }
-    
     }
 
     @AfterTest
