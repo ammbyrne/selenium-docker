@@ -37,7 +37,8 @@ public class RegistrationPage {
     }
 
     public void goTo(){
-        this.driver.get("https://vins-udemy.s3.amazonaws.com/docker/docker-book-flight.html");
+        //this.driver.get("https://vins-udemy.s3.amazonaws.com/docker/docker-book-flight.html");
+        this.driver.get("http://demo.guru99.com/test/newtours/register.php");
         this.wait.until(ExpectedConditions.visibilityOf(this.firstNameTxt));
     }
 

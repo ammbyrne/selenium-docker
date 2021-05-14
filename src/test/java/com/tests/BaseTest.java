@@ -6,7 +6,8 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
-
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -21,12 +22,15 @@ public class BaseTest {
 
         String host = "localhost";
         DesiredCapabilities dc;
+        ChromeOptions chrome = null;
+        FirefoxOptions firefox = null;
+
 
         if(System.getProperty("BROWSER") != null &&
                 System.getProperty("BROWSER").equalsIgnoreCase("firefox")){
-            dc = DesiredCapabilities.firefox();
+            chrome = new ChromeOptions();
         }else{
-            dc = DesiredCapabilities.chrome();
+            firefox = new FirefoxOptions();
         }
 
         if(System.getProperty("HUB_HOST") != null){
@@ -36,15 +40,20 @@ public class BaseTest {
         String testName = ctx.getCurrentXmlTest().getName();
 
         String completeUrl = "http://" + host + ":4444/wd/hub";
-        dc.setCapability("name", testName);
-        this.driver = new RemoteWebDriver(new URL(completeUrl), dc);
+   
+        if (chrome != null) {
+            chrome.setCapability("name", testName);
+            this.driver = new RemoteWebDriver(new URL(completeUrl), chrome);        
+        }
+        else {
+            firefox.setCapability("name", testName);
+            this.driver = new RemoteWebDriver(new URL(completeUrl), firefox);
+        }
+    
     }
 
     @AfterTest
     public void quitDriver(){
         this.driver.quit();
     }
-
-
-
 }

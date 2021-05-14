@@ -28,5 +28,4 @@ public class RegistrationConfirmationPage {
         this.wait.until(ExpectedConditions.visibilityOf(this.signinLink));
         this.flightsLink.click();
     }
-
 }
